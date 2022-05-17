@@ -28,6 +28,7 @@ export class Post {
 }
 
 export function fromMap(map){
+    console.log(map["Post title"]);
     return new Post(
         map['userId'],
         map['postTitle'],

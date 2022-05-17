@@ -4,7 +4,7 @@ import { signIn } from "../back-end/authfunctions";
 
 
 export function LoginPage(){
-    const [user, setUser] = useState("loading");
+    const [user, setUser] = useState("Log In");
 
     useEffect(  () =>{
         async function getResponse(){
@@ -14,10 +14,7 @@ export function LoginPage(){
         }
         getResponse();
         
-    },[]
-        
-        
-       
+    },[] 
     );
 
 

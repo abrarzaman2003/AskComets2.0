@@ -8,26 +8,39 @@ import { LoginPage } from "./front-end/loginpage";import {
   Route,
   Link
 } from "react-router-dom";
+import { createTheme } from "@mui/system";
+import { ThemeProvider } from "@emotion/react";
 
+
+export const theme = createTheme({
+  typography: {
+    fontFamily: [
+      '-apple-system',
+      'BlinkMacSystemFont',
+      '"Segoe UI"',
+      'Roboto',
+      '"Helvetica Neue"',
+      'Arial',
+      'sans-serif',
+      '"Apple Color Emoji"',
+      '"Segoe UI Emoji"',
+      '"Segoe UI Symbol"',
+    ].join(','),
+  },
+})
 
 
 
 
 function App() {
   return (
-    <div className="App">
+
+    <div className="App" >
+      
       <Router>
       <div>
-        <nav>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/login">login</Link>
-            </li>
-          </ul>
-        </nav>
+      
+        
 
         {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
@@ -41,6 +54,7 @@ function App() {
         </Routes>
       </div>
     </Router>
+    
     </div>
   );
 }

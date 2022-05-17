@@ -4,9 +4,10 @@ import { fromMap } from "./postModel";
 import uuid from 'react-uuid';
 
 export async function getAllPosts () {
-    const collectionRef = collection(db, 'posts');
+    const collectionRef = await collection(db, 'posts');
     const snapShot = await getDocs(collectionRef);
-    return snapShot.docs.map((doc) => (fromMap(doc.data)));
+    const x = await snapShot.docs.map((doc) => (fromMap(doc.data())));
+    return x;
     
 }
 
