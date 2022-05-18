@@ -6,9 +6,12 @@ import { ThemeProvider } from '@emotion/react';
 import { theme } from '../App';
 import {AskCometsLogo , LoginButton, PostsBox} from './HomePageComponents';
 import { Post } from '../back-end/postModel';
+import { useState } from 'react';
+
+export var userId;
 
 export function HomePage(){
-
+    const [userId, setUserId] = useState("");
     
 
     
@@ -28,7 +31,7 @@ export function HomePage(){
                         <Grid item xs={5}></Grid>
 
                         <Grid item xs={1}>
-                            <LoginButton />    
+                            <LoginButton func={setUserId}/>    
                         </Grid>
 
                         <Grid item xs={1}></Grid>
@@ -39,7 +42,7 @@ export function HomePage(){
                     <Grid container spacing={3}>
                         <Grid item xs={1}></Grid>
                         <Grid item xs={10}>
-                            <PostsBox></PostsBox>
+                            <PostsBox userId={userId}></PostsBox>
                         </Grid>
                         <Grid item xs={1}></Grid>
                     </Grid>

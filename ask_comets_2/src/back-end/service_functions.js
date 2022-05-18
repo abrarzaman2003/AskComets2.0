@@ -1,5 +1,5 @@
 import { db } from "./firebase_config";
-import { collection, doc, getDocs, setDoc } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs, setDoc } from "firebase/firestore";
 import { fromMap } from "./postModel";
 import uuid from 'react-uuid';
 
@@ -16,7 +16,14 @@ export async function getUserPosts(userId){
 
 }
 
-export async function addPosts(postObject){
+export async function getPost(postId){
+    const docRef = await doc(db, 'posts', postId);
+    const docSnapShot = await getDoc(docRef);
+    const x = await docSnapShot.data();
+    return fromMap(x);
+}
+
+export async function addPost(postObject){
     const collectionRef = collection(db, 'posts');
     const postRef = doc(collectionRef, postObject.postId);
     await setDoc(postRef, postObject.toMap() );
