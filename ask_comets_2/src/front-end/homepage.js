@@ -7,11 +7,13 @@ import { theme } from '../App';
 import {AskCometsLogo , LoginButton, PostsBox} from './HomePageComponents';
 import { Post } from '../back-end/postModel';
 import { useState } from 'react';
+import { User } from '../back-end/userModel';
 
-export var userId;
 
 export function HomePage(){
-    const [userId, setUserId] = useState("");
+    const [user, setUser] = useState("");
+    const [loggedIn, setLoggedIn] = useState(false);
+    
     
 
     
@@ -31,9 +33,8 @@ export function HomePage(){
                         <Grid item xs={5}></Grid>
 
                         <Grid item xs={1}>
-                            <LoginButton func={setUserId}/>    
+                            <LoginButton func={setUser} isLoggedIn={loggedIn} setLoggedIn={setLoggedIn} />    
                         </Grid>
-
                         <Grid item xs={1}></Grid>
                     </Grid>
                 </Grid>
@@ -42,7 +43,7 @@ export function HomePage(){
                     <Grid container spacing={3}>
                         <Grid item xs={1}></Grid>
                         <Grid item xs={10}>
-                            <PostsBox userId={userId}></PostsBox>
+                            <PostsBox userId={user.userId} isLoggedIn={loggedIn}></PostsBox>
                         </Grid>
                         <Grid item xs={1}></Grid>
                     </Grid>

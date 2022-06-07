@@ -25,8 +25,8 @@ export class User{
 
 export function fromUserMap (map){
     return new User(
-        map['userId'],
         map['name'],
-        map['email']
+        map['email'],
+        map['userId']
     );
 }

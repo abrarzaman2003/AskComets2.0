@@ -1,6 +1,7 @@
 import { db } from "./firebase_config";
-import { collection, doc, getDoc, getDocs, setDoc } from "firebase/firestore";
+import { collection, doc, Firestore, getDoc, getDocs, setDoc } from "firebase/firestore";
 import { fromMap } from "./postModel";
+import { Comment, fromCommentMap } from "./commentObject";
 import uuid from 'react-uuid';
 
 export async function getAllPosts () {
@@ -34,6 +35,21 @@ export async function addUser(userObject){
     const userRef = doc(collectionRef, userObject.userId);
     await setDoc(userRef, userObject.toMap());
     return userObject;
+}
+
+export async function addComment(commentObject){
+    const collectionRef = await collection(db, 'posts' , commentObject.postId, 'comments');
+    const commentRef = await doc(collectionRef, commentObject.commentId);
+    await setDoc(commentRef, commentObject.toMap());
+    return commentObject;
+}
+
+export async function getComments(postId){
+    const collectionRef = await collection(db, 'posts' , postId, 'comments');
+    const snapShot = await getDocs(collectionRef);
+    const commentArray = await snapShot.docs.map((doc) => (fromCommentMap(doc.data())));
+    return commentArray;
+
 }
 
 

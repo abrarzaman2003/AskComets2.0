@@ -11,6 +11,7 @@ export async function signIn(){
     const token = credential.accessToken;
     const user = await result.user;
     const newUser = new User(user['displayName'], user['email'], user['uid']);
+    //console.log(user['uid']);
     addUser(newUser);
     return newUser;
 }

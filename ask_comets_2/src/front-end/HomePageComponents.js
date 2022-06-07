@@ -1,8 +1,9 @@
 import {Typography, Box, Button, Grid, Modal, Stack, TextField, Card, CardActionArea } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { addPost, getAllPosts } from '../back-end/service_functions';
 import { signIn } from '../back-end/authfunctions';
 import { Post } from '../back-end/postModel';
+import { UserContext } from '../App';
 import { Link } from 'react-router-dom';
 
 const style = {
@@ -20,40 +21,48 @@ const style = {
   };
 
 export function AskCometsLogo(){
+    const link = "/";
+
     return(
-        <Box sx={{
+        <Card sx={{
             width: 'fit-content',
             backgroundColor: '#bAb86c',
             borderRadius: '21px',
         }}>
-        <Typography sx={
-            {
-                fontSize: '70px',
-                padding: 1,
-            }
-        }>
-            AskComets
-        </Typography>
-        </Box>
+            
+            <Link to={link} style={{ color: 'inherit', textDecoration: 'inherit'}}>
+
+            
+                
+                <Typography sx={
+                    {
+                        fontSize: '70px',
+                        padding: 1,
+                    }
+                }>
+                    AskComets
+                </Typography>
+            </Link>
+        </Card>
     );
 }
 
 
-export function LoginButton(props) {
-    const [user, setUser] = useState("Log In");
+export function LoginButton() {
+    const {user, setUser} = useContext(UserContext);
+    console.log(user);
+    //const text = "Log In";
     
     async function getResponse(){
         const a = await signIn()
         const b = await a;
-        props.func(b.userId);
-        setUser(b.name);
+        //console.log(b);
+        await setUser(b);
     }
 
     const handleClick = function (){
-        getResponse();
+        getResponse().then(console.log(user));
     }
-
-    
     
     return(
         <Button variant="contained" onClick={handleClick} sx={{
@@ -61,7 +70,7 @@ export function LoginButton(props) {
             borderRadius: '10px',
             color: '#000000'
         }}>
-            <Typography> {user} </Typography>
+            <Typography> {user.name} </Typography>
         </Button>
     );
 }
@@ -71,6 +80,7 @@ export function PostsBox(props){
 
     const [postArray, setPostArray] = useState([]);
     const [count, setCount] = useState(0);
+    const {user } = useContext(UserContext);
     
 
     useEffect(()=>{
@@ -86,6 +96,14 @@ export function PostsBox(props){
 
         gettingPosts();
     }, [count]);
+
+    useEffect(()=>{
+        if (user.name === "Log In"){
+            console.log("bruh");
+        }else{
+           console.log('ye');
+        }
+    },[])
 
 
     return(
@@ -110,7 +128,7 @@ export function PostsBox(props){
                     </Grid>
                     
                     <Grid item xs ={2}>
-                        <AddPostModal userId={props.userId} func={setCount} count={count}></AddPostModal>
+                        <AddPostModal func={setCount} count={count}></AddPostModal>
                     </Grid>
                 </Grid> 
             
@@ -140,7 +158,8 @@ export function PostCard( props ){
                 backgroundColor: '#8FB8ED',
                 borderRadius: '21px',
             }}>
-                <CardActionArea href={link}>
+                
+                <Link to={link} style={{ color: 'inherit', textDecoration: 'inherit'}}>
                     <Typography sx={
                                 {
                                     fontSize: '25px',
@@ -152,8 +171,9 @@ export function PostCard( props ){
                                     fontSize: '20px',
                                     padding: 1,
                                 }
-                            }> {props.postBody} </Typography>
-                    </CardActionArea>
+                            }> {props.postBody} 
+                    </Typography>
+                </Link>
             </Card>
         
        
@@ -166,6 +186,8 @@ export function AddPostModal(props){
 
     const [postTitleText, setPostTitleText] = useState("");
     const [postBodyText, setPostBodyText] = useState("");
+
+    const { user } = useContext(UserContext);
 
 
     const handleTitleChange = (event)=>{
@@ -180,6 +202,7 @@ export function AddPostModal(props){
 
     const submit = ()=> {
         const newPost = new Post(props.userId, postTitleText, postBodyText, 0);
+        console.log(newPost);
         addPost(newPost);
         setOpen(false);
         const x = props.count + 1;
@@ -188,7 +211,9 @@ export function AddPostModal(props){
 
 
     const handleOpen = () => {
-        if (props.userId === ""){
+        
+        console.log(user.name);
+        if (user.name=="Log In"){
             seteOpen(true);
         }else{
             setOpen(true);
