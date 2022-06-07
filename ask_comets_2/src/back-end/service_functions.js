@@ -1,8 +1,7 @@
 import { db } from "./firebase_config";
-import { collection, doc, Firestore, getDoc, getDocs, setDoc } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs, setDoc } from "firebase/firestore";
 import { fromMap } from "./postModel";
 import { Comment, fromCommentMap } from "./commentObject";
-import uuid from 'react-uuid';
 
 export async function getAllPosts () {
     const collectionRef = await collection(db, 'posts');

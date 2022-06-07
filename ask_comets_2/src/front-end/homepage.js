@@ -1,13 +1,9 @@
-import Button from '@mui/material/Button';
-import Box from '@mui/material/Box';
-import { Grid, Typography } from '@mui/material';
-import { sizing } from '@mui/system';
-import { ThemeProvider } from '@emotion/react';
-import { theme } from '../App';
-import {AskCometsLogo , LoginButton, PostsBox} from './HomePageComponents';
-import { Post } from '../back-end/postModel';
+import { Grid } from '@mui/material';
 import { useState } from 'react';
-import { User } from '../back-end/userModel';
+import { LoginButton } from './HomePageComponents/LoginButton';
+import { PostsBox } from './HomePageComponents/PostsBox';
+import { AskCometsLogo } from './HomePageComponents/AskCometsLogo';
+
 
 
 export function HomePage(){

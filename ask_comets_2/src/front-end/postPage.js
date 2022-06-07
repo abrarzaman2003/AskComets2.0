@@ -1,22 +1,12 @@
-import { useEffect , useState} from "react";
-import { getPost, addComment, getComments } from "../back-end/service_functions";
-import {Typography, Box, Button, Grid, Modal, Stack, TextField } from '@mui/material';
+import { Grid } from '@mui/material';
 import { useParams } from "react-router";
-import { AskCometsLogo, LoginButton } from "./HomePageComponents";
-import { Comment } from "../back-end/commentObject";
-import { CommentsBox, PostBox } from "./PostPageComponents";
-import { Post } from "../back-end/postModel";
+import { AskCometsLogo } from './HomePageComponents/AskCometsLogo';
+import { LoginButton } from './HomePageComponents/LoginButton';
+import { CommentsBox} from './PostPageComponents/CommentsBox';
+
+
 export function PostPage(){
-
-    
-
     let {id} = useParams(); 
-
-    
-
-    
-    
-
     return(
         <div>
         <Grid container direction='column' justifyContent='center' spacing={3}>
@@ -41,7 +31,7 @@ export function PostPage(){
                 <Grid container spacing={3}>
                         <Grid item xs={1}></Grid>
                         <Grid item xs={10}>
-                            <PostBox id={id}></PostBox>
+                            <CommentsBox id={id}></CommentsBox>
                         </Grid>
                         <Grid item xs={1}></Grid>
                     </Grid>  
