@@ -1,5 +1,5 @@
 import { Button, Typography, Menu, MenuItem} from "@mui/material";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import {UserContext} from "../../App";
 import { logOut, signIn } from '../../back-end/authfunctions';
 import { User } from "../../back-end/userModel";
@@ -25,6 +25,13 @@ export function LoginButton() {
         //console.log(open);
     };
 
+    useEffect(()=>{
+        if (user.name != "Log In"){
+            setLoggednIn(true);
+        }
+    },[]);
+
+    
 
 
     async function getResponse(){
@@ -35,6 +42,7 @@ export function LoginButton() {
     }
 
     const handleClick =  (event) => {
+
         if (!loggedIn){
             getResponse().then(console.log(user));
         }else{

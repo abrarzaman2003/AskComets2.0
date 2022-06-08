@@ -2,7 +2,7 @@ import { Grid } from '@mui/material';
 import { useParams } from "react-router";
 import { AskCometsLogo } from './HomePageComponents/AskCometsLogo';
 import { LoginButton } from './HomePageComponents/LoginButton';
-import { CommentsBox} from './PostPageComponents/CommentsBox';
+import { PostBox } from './PostPageComponents/PostBox';
 
 
 export function PostPage(){
@@ -31,7 +31,7 @@ export function PostPage(){
                 <Grid container spacing={3}>
                         <Grid item xs={1}></Grid>
                         <Grid item xs={10}>
-                            <CommentsBox id={id}></CommentsBox>
+                            <PostBox id={id}></PostBox>
                         </Grid>
                         <Grid item xs={1}></Grid>
                     </Grid>  

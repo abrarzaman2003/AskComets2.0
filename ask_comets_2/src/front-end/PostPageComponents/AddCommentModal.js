@@ -36,7 +36,7 @@ export function AddCommentModal(props){
     }
 
     const submit = ()=> {
-        const newComment = new Comment(props.post.userId, commentBodyText, props.post.postId, 0);
+        const newComment = new Comment(user.userId, commentBodyText, props.post.postId, 0);
         addComment(newComment);
         setOpen(false);
         const x = props.count + 1;

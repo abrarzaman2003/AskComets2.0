@@ -7,26 +7,22 @@ import { CommentCard } from "./CommentCard";
 
 
 export function CommentsBox(props){
-    const [post, setPost] = useState(null);
+    //const [post, setPost] = useState(null);
     const [commentArray, setCommentArray] = useState([]);
     const [count, setCount] = useState(0);
     
     
 
     useEffect(()=>{
-        async function retrievePost(){
-            const postObject = await getPost(props.id);
-            await setPost(postObject);
-            return postObject;
-        }
-        async function gettingComments( postObject){
-            const array = await getComments(postObject.postId);
+        
+        async function gettingComments(){
+            const array = await getComments(props.post.postId);
             const cArray = await array.map((c) => <CommentCard key={c.commentId} commentObject={c} > </CommentCard>  );
             setCommentArray(cArray);
             setCount(cArray.length);
         }
 
-        retrievePost().then((x)=> gettingComments(x));
+        gettingComments();
     }, [count]);
 
 
@@ -52,7 +48,7 @@ export function CommentsBox(props){
                     </Grid>
                     
                     <Grid item xs ={2}>
-                        <AddCommentModal post={post} func={setCount} count={count}></AddCommentModal>
+                        <AddCommentModal post={props.post} func={setCount} count={count}></AddCommentModal>
                     </Grid>
                 </Grid> 
             

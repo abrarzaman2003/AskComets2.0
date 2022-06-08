@@ -1,7 +1,8 @@
 import { db } from "./firebase_config";
-import { collection, doc, getDoc, getDocs, orderBy, query, setDoc } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs, orderBy, query, setDoc, where } from "firebase/firestore";
 import { fromMap } from "./postModel";
 import { Comment, fromCommentMap } from "./commentObject";
+import { fromUserMap } from "./userModel";
 
 export async function getAllPosts () {
     const collectionRef = await collection(db, 'posts');
@@ -50,6 +51,14 @@ export async function getComments(postId){
     const commentArray = await snapShot.docs.map((doc) => (fromCommentMap(doc.data())));
     return commentArray;
 
+}
+
+export async function getUser(userId){
+    const docRef = await doc(db, 'users', userId);
+    const docSnapShot = await getDoc(docRef);
+    const x = await docSnapShot.data();
+    //console.log(x);
+    return fromUserMap(x);
 }
 
 // export async function upsertComment(commentObject){
