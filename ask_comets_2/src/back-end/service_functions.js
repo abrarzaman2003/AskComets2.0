@@ -1,11 +1,12 @@
 import { db } from "./firebase_config";
-import { collection, doc, getDoc, getDocs, setDoc } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs, orderBy, query, setDoc } from "firebase/firestore";
 import { fromMap } from "./postModel";
 import { Comment, fromCommentMap } from "./commentObject";
 
 export async function getAllPosts () {
     const collectionRef = await collection(db, 'posts');
-    const snapShot = await getDocs(collectionRef);
+    const q = query(collectionRef, orderBy("timeStamp", "desc"));
+    const snapShot = await getDocs(q);
     const x = await snapShot.docs.map((doc) => (fromMap(doc.data())));
     return x;
     
@@ -39,7 +40,7 @@ export async function addUser(userObject){
 export async function addComment(commentObject){
     const collectionRef = await collection(db, 'posts' , commentObject.postId, 'comments');
     const commentRef = await doc(collectionRef, commentObject.commentId);
-    await setDoc(commentRef, commentObject.toMap());
+    await setDoc(commentRef, commentObject.toMap(), { merge: true });
     return commentObject;
 }
 
@@ -50,6 +51,10 @@ export async function getComments(postId){
     return commentArray;
 
 }
+
+// export async function upsertComment(commentObject){
+
+// }
 
 
 

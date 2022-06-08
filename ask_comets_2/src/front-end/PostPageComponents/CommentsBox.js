@@ -21,7 +21,7 @@ export function CommentsBox(props){
         }
         async function gettingComments( postObject){
             const array = await getComments(postObject.postId);
-            const cArray = await array.map((c) => <CommentCard key={c.commentId} commentBody={c.commentBody} > </CommentCard>  );
+            const cArray = await array.map((c) => <CommentCard key={c.commentId} commentObject={c} > </CommentCard>  );
             setCommentArray(cArray);
             setCount(cArray.length);
         }

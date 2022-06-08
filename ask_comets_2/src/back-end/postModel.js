@@ -6,6 +6,7 @@ export class Post {
         this.userId = userId;
         this.postBody = postBody;
         this.postTitle = postTitle;
+        this.timeStamp = new Date();
 
         if (postId == 0){
             this.postId = uuid();
@@ -20,7 +21,8 @@ export class Post {
             postId : this.postId,
             userId : this.userId,
             postBody : this.postBody,
-            postTitle : this.postTitle
+            postTitle : this.postTitle,
+            timeStamp : this.timeStamp
         };
     }
 
@@ -32,6 +34,7 @@ export function fromMap(map){
         map['userId'],
         map['postTitle'],
         map['postBody'],
-        map['postId']
+        map['postId'],
+        map['timeStamp']
     );
 }
