@@ -2,11 +2,12 @@ import uuid from "react-uuid";
 
 export class Post {
     
-    constructor(userId, postTitle, postBody, postId){
+    constructor(userId, postTitle, postBody, postId, resolved=false, timeStamp=new Date()){
         this.userId = userId;
         this.postBody = postBody;
         this.postTitle = postTitle;
-        this.timeStamp = new Date();
+        this.timeStamp = timeStamp;
+        this.resolved = resolved;
 
         if (postId == 0){
             this.postId = uuid();
@@ -22,8 +23,13 @@ export class Post {
             userId : this.userId,
             postBody : this.postBody,
             postTitle : this.postTitle,
+            resolved : this.resolved,
             timeStamp : this.timeStamp
         };
+    }
+
+    resolvePost(){
+        this.resolved = !this.resolved;
     }
 
 
@@ -35,6 +41,7 @@ export function fromMap(map){
         map['postTitle'],
         map['postBody'],
         map['postId'],
-        map['timeStamp']
+        map['resolved'],
+        map['timeStamp'],
     );
 }

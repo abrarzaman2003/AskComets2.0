@@ -1,9 +1,32 @@
 import { Grid } from '@mui/material';
+import { createContext, useMemo, useState } from 'react';
 import { useParams } from "react-router";
 import { AskCometsLogo } from './HomePageComponents/AskCometsLogo';
 import { LoginButton } from './HomePageComponents/LoginButton';
 import { PostBox } from './PostPageComponents/PostBox';
+import { Post } from '../back-end/postModel';
 
+export const PostContext = createContext(null);
+
+export  const PostProvider = (props) => {
+  const [post, setPost] = useState(new Post(
+    0,
+    "Loading...",
+    "Loading...",
+    "Loading...",
+    0,
+    false
+)); // a dummy object to read the text from 
+  const value = useMemo(
+   () => ({post, setPost}),[post]);
+  
+  
+    return ( 
+        <PostContext.Provider value={value}>
+            {props.children}
+        </PostContext.Provider>
+    );
+  }
 
 export function PostPage(){
     let {id} = useParams(); 
@@ -31,7 +54,9 @@ export function PostPage(){
                 <Grid container spacing={3}>
                         <Grid item xs={1}></Grid>
                         <Grid item xs={10}>
-                            <PostBox id={id}></PostBox>
+                            <PostProvider>
+                                <PostBox id={id}></PostBox>
+                            </PostProvider>
                         </Grid>
                         <Grid item xs={1}></Grid>
                     </Grid>  

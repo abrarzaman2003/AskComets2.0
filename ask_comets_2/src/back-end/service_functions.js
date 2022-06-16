@@ -1,5 +1,5 @@
 import { db } from "./firebase_config";
-import { collection, doc, getDoc, getDocs, orderBy, query, setDoc, where } from "firebase/firestore";
+import { collection, deleteDoc, doc, getDoc, getDocs, orderBy, query, setDoc, where } from "firebase/firestore";
 import { fromMap } from "./postModel";
 import { Comment, fromCommentMap } from "./commentObject";
 import { fromUserMap } from "./userModel";
@@ -28,7 +28,12 @@ export async function getPost(postId){
 export async function addPost(postObject){
     const collectionRef = collection(db, 'posts');
     const postRef = doc(collectionRef, postObject.postId);
-    await setDoc(postRef, postObject.toMap() );
+    await setDoc(postRef, postObject.toMap(), { merge: true } );
+}
+
+export async function deletePost(postObject){
+    const docRef = await doc(db, 'posts', postObject.postId);
+    await deleteDoc(docRef);
 }
 
 export async function addUser(userObject){

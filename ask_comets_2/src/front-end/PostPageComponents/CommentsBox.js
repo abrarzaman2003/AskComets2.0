@@ -1,13 +1,14 @@
 import { Box, Grid, Stack, Typography } from "@mui/material";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { getComments, getPost } from "../../back-end/service_functions";
 import { AddCommentModal } from "./AddCommentModal";
 import { CommentCard } from "./CommentCard";
+import {PostContext} from "../postPage";
 
 
 
-export function CommentsBox(props){
-    //const [post, setPost] = useState(null);
+export function CommentsBox(){
+    const {post} = useContext(PostContext);
     const [commentArray, setCommentArray] = useState([]);
     const [count, setCount] = useState(0);
     
@@ -16,14 +17,15 @@ export function CommentsBox(props){
     useEffect(()=>{
         
         async function gettingComments(){
-            const array = await getComments(props.post.postId);
+            const array = await getComments(post.postId);
             const cArray = await array.map((c) => <CommentCard key={c.commentId} commentObject={c} > </CommentCard>  );
             setCommentArray(cArray);
             setCount(cArray.length);
+            //console.log(cArray);
         }
 
         gettingComments();
-    }, [count]);
+    }, [count,post]);
 
 
     return(
@@ -48,7 +50,7 @@ export function CommentsBox(props){
                     </Grid>
                     
                     <Grid item xs ={2}>
-                        <AddCommentModal post={props.post} func={setCount} count={count}></AddCommentModal>
+                        <AddCommentModal func={setCount} count={count}></AddCommentModal>
                     </Grid>
                 </Grid> 
             

@@ -3,6 +3,7 @@ import { useState, useContext } from "react";
 import { addComment } from "../../back-end/service_functions";
 import { Comment } from "../../back-end/commentObject";
 import { UserContext } from "../../App";
+import { PostContext } from "../postPage";
 
 const style = {
     position: 'absolute',
@@ -23,6 +24,7 @@ export function AddCommentModal(props){
     const [eOpen, seteOpen] = useState(false);
 
     const { user } = useContext(UserContext);
+    const {post} = useContext(PostContext);
 
 
 
@@ -36,7 +38,7 @@ export function AddCommentModal(props){
     }
 
     const submit = ()=> {
-        const newComment = new Comment(user.userId, commentBodyText, props.post.postId, 0);
+        const newComment = new Comment(user.userId, commentBodyText, post.postId, 0);
         addComment(newComment);
         setOpen(false);
         const x = props.count + 1;
