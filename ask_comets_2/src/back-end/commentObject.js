@@ -29,6 +29,9 @@ export class Comment {
     incrementUpvote(){
         this.upvotes = this.upvotes + 1; 
     }
+    decrementUpvote(){
+        this.upvotes = this.upvotes - 1; 
+    }
 
 
 }

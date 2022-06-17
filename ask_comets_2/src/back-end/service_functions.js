@@ -1,5 +1,5 @@
 import { db } from "./firebase_config";
-import { collection, deleteDoc, doc, getDoc, getDocs, orderBy, query, setDoc, where } from "firebase/firestore";
+import { collection, deleteDoc, doc, DocumentReference, getDoc, getDocs, orderBy, query, setDoc, where  } from "firebase/firestore";
 import { fromMap } from "./postModel";
 import { Comment, fromCommentMap } from "./commentObject";
 import { fromUserMap } from "./userModel";
@@ -55,7 +55,31 @@ export async function getComments(postId){
     const snapShot = await getDocs(collectionRef);
     const commentArray = await snapShot.docs.map((doc) => (fromCommentMap(doc.data())));
     return commentArray;
+}
 
+export async function upvoteComment (commentObject , userObject, upvoted){
+    const collectionRef = await collection(db, 'posts' , commentObject.postId, 'comments' , commentObject.commentId, 'upvoted');
+    const a = await checkUserUpvote(commentObject, userObject);
+    if (upvoted){
+        if (!a){
+            const userRef = doc(collectionRef, userObject.userId);
+            await setDoc(userRef, userObject.toMap(), {merge: true});
+        }
+        // if upvoted, and the thing is not there, then put it there
+        //if not upvoted, and the the thing is there, then delete it
+    }else{
+        if (a){
+            const docRef = await doc(db, 'posts' , commentObject.postId, 'comments' , commentObject.commentId, 'upvoted', userObject.userId);
+            await deleteDoc(docRef);
+        }
+    }
+    
+}
+
+export async function checkUserUpvote(commentObject , userObject){
+    const docRef = await doc(db, 'posts' , commentObject.postId, 'comments' , commentObject.commentId, 'upvoted', userObject.userId);
+    const docSnap  = await getDoc(docRef);
+    return docSnap.exists();
 }
 
 export async function getUser(userId){

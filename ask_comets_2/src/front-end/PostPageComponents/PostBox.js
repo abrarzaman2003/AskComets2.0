@@ -16,7 +16,7 @@ export function PostBox(props){
         async function retrievePost(){
             const postObject = await getPost(props.id);
             await setPost(postObject);
-            console.log(postObject);
+            //console.log(postObject);
             return postObject;
         }
         async function retrieveUser(postObject){

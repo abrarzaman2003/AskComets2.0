@@ -17,6 +17,6 @@ export async function signIn(){
 
 export async function logOut(){
     const result = await signOut(auth, provider);
-    console.log(result);
+    //console.log(result);
 }
 

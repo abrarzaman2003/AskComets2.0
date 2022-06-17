@@ -1,25 +1,80 @@
 import { Grid, Typography, Box, Button } from "@mui/material";
-import { useState } from "react";
-import { Comment } from "../../back-end/commentObject";
-import { addComment } from "../../back-end/service_functions";
+import { useContext, useEffect, useState } from "react";
+import { Comment, incrementUpvote, decrementUpvote } from "../../back-end/commentObject";
+import { addComment, upvoteComment, checkUserUpvote } from "../../back-end/service_functions";
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
+import { UserContext } from "../../App";
+import { PostContext } from "../postPage";
+
 
 export  function UpvoteBar(props){
     //take the comment object as a prop.
+    const  [commentObject, setCommentObject] = useState(props.comment);
     const [upvoteCount, setUpvoteCount] = useState(props.comment.upvotes);
+    const [disable , setDisable] = useState(true);
+    const [upvoted, setUpvoted] = useState(false);
+    const [loaded, setLoaded] = useState(false);
+
+    const {user} = useContext(UserContext);
+    const {post} = useContext(PostContext);
 
     const incrementUpvote = () =>{
-        console.log(props.comment);
-        props.comment.incrementUpvote();
+        commentObject.incrementUpvote();
+        setCommentObject(commentObject);
+        //console.log(props.comment);
         setUpvoteCount(upvoteCount + 1);
-        fun(props.comment);
+        setUpvoted(true);
     }
 
-    const fun = async (cObject)=>{
-        
-        const a = await addComment(cObject);
-        const b = await (a);
-        console.log(b);
+    const decrementUpvote = () =>{
+        commentObject.decrementUpvote();
+        setCommentObject(commentObject);
+        //console.log(props.comment);
+        setUpvoteCount(upvoteCount-1);
+        setUpvoted(false);
+    }
+
+    const firestoreUpdate = async ()=>{
+        console.log(commentObject);
+
+        await addComment(commentObject);
+       
+        await upvoteComment(commentObject, user, upvoted);
+    
+    }
+
+    useEffect(
+        ()=>{
+            const a = async () =>{
+                const uv = await checkUserUpvote(props.comment, user);
+                setUpvoted(uv);
+            }
+            a();
+            
+        } , [user]
+    );
+
+    useEffect(
+        ()=>{
+            if (user.name=="Log In"){
+                setDisable(true);
+            }else{
+                setDisable(false);
+            }
+            return() => {
+                console.log("component unmounted");
+                firestoreUpdate();
+            };
+            
+        } , [user]
+    );
+
+    const handleClick = () => {
+        if (upvoted){
+            decrementUpvote();
+        }else{
+            incrementUpvote();
+        }
     }
 
     return(
@@ -43,7 +98,7 @@ export  function UpvoteBar(props){
             color: '#000000',
             margin: 1,
             mx: 2
-        }} onClick={incrementUpvote}> <ThumbUpIcon style={{ color: '#19647E' }} /> </Button>
+        }} onClick={handleClick} disabled={disable}> <ThumbUpIcon style={{ color: '#19647E' }} /> </Button>
                 </Grid>
 
                 

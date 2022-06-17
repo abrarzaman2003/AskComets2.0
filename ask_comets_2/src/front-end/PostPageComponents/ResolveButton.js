@@ -47,10 +47,10 @@ export function ResolveButton(){
     
     const handleResolveClick = () =>{
         if (same){
-            console.log("post object before", post);
+            
             post.resolvePost();
             setPost(post);
-            console.log("post object after", post);
+           
             setResolved(post.resolved);
             addPost(post);
         }
