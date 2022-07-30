@@ -4,6 +4,8 @@ import { getComments, getPost } from "../../back-end/service_functions";
 import { AddCommentModal } from "./AddCommentModal";
 import { CommentCard } from "./CommentCard";
 import {PostContext} from "../postPage";
+import { commentBox_body_style } from "../Styling/TypographyStyling";
+import { commentsBox_box_style } from "../Styling/CardStyling";
 
 
 
@@ -29,24 +31,13 @@ export function CommentsBox(){
 
 
     return(
-        <Box sx={{
-            width: 1 ,
-            height: "fit-content",
-            backgroundColor: '#F09AA9',
-            borderRadius: '21px',
-            paddingBottom: 3
-        }}>
+        <Box sx={commentsBox_box_style}>
         <Stack spacing={2}>
            
                 <Grid container justifyContent="space-between">
                     <Grid item xs = {2}>
                         <Typography
-                        sx={
-                            {
-                                fontSize: '35px',
-                                padding: 2,
-                            }
-                        }> Comments </Typography>
+                        sx={commentBox_body_style}> Comments </Typography>
                     </Grid>
                     
                     <Grid item xs ={2}>

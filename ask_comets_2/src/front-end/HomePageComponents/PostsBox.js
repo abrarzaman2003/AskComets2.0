@@ -1,8 +1,8 @@
-import { Grid, Stack, Typography } from "@mui/material";
-import { Box } from "@mui/system";
+import { Grid, Stack, Typography, Card } from "@mui/material";
 import { useState, useEffect, useContext } from "react";
 import { UserContext } from "../../App";
 import { getAllPosts } from "../../back-end/service_functions";
+import { postsBox_card_style, postsBox_recentPosts_style } from "../Styling/TypographyStyling";
 import { AddPostModal } from "./AddPostModal";
 import { PostCard } from "./PostCard";
 
@@ -28,24 +28,13 @@ export function PostsBox(){
     }, [count]);
 
     return(
-        <Box sx={{
-            width: 1 ,
-            height: "fit-content",
-            backgroundColor: '#19647E',
-            borderRadius: '21px',
-            paddingBottom: 3
-        }}>
+        <Card sx={postsBox_card_style}>
         <Stack spacing={2}>
            
                 <Grid container justifyContent="space-between">
                     <Grid item xs = {2}>
                         <Typography
-                        sx={
-                            {
-                                fontSize: '35px',
-                                padding: 2,
-                            }
-                        }> Recent Posts </Typography>
+                        sx={postsBox_recentPosts_style}> Recent Posts </Typography>
                     </Grid>
                     
                     <Grid item xs ={2}>
@@ -63,6 +52,6 @@ export function PostsBox(){
            
           
 
-        </Box>
+        </Card>
     );
 }

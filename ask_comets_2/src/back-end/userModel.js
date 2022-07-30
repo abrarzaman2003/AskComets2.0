@@ -23,7 +23,7 @@ export class User{
     }
 }
 
-export function fromUserMap (map){
+export function fromUserMap(map){
     return new User(
         map['name'],
         map['email'],

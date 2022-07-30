@@ -3,6 +3,7 @@ import { useContext, useEffect, useState } from "react";
 import {UserContext} from "../../App";
 import { logOut, signIn } from '../../back-end/authfunctions';
 import { User } from "../../back-end/userModel";
+import { loginButton_style } from "../Styling/ButtonStyling";
 
 
 
@@ -61,18 +62,11 @@ export function LoginButton() {
     
     return(
         <div>
-        <Button variant="contained" onClick={handleClick} sx={{
-            backgroundColor: '#bAb86c',
-            borderRadius: '10px',
-            color: '#000000'
-        }}>
-            <Typography> {user.name} </Typography>
-            
+        <Button variant="contained" onClick={handleClick} sx={loginButton_style}>
+            <Typography> {user.name} </Typography>  
         </Button>
         <Menu id="basic-menu" open={open} onClose={handleClose} anchorEl={anchorEl}>
-
             <MenuItem onClick={handleLogOutClick}>Log Out</MenuItem>
-
         </Menu>
         </div>
     );

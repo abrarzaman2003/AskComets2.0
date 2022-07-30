@@ -3,20 +3,10 @@ import { useState, useContext } from "react";
 import { addPost } from "../../back-end/service_functions";
 import { UserContext } from "../../App";
 import { Post } from "../../back-end/postModel";
+import { addPostModal_style } from "../Styling/ModalStyling";
+import { addPostModal_button_style, addPostModal_submitButton_style } from "../Styling/ButtonStyling";
 
-const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 400,
-    bgcolor: '#8FB8ED',
-    boxShadow: 24,
-    pt: 2,
-    px: 4,
-    pb: 3,
-    borderRadius: "21px",
-};
+
 
 export function AddPostModal(props){
     const [open, setOpen] = useState(false);
@@ -69,27 +59,18 @@ export function AddPostModal(props){
     
     return(
     <div>
-      <Button onClick={handleOpen} sx={{
-            backgroundColor: '#bAb86c',
-            borderRadius: '10px',
-            color: '#000000',
-            margin: 2
-        }}>Add Post</Button>
+      <Button onClick={handleOpen} sx={addPostModal_button_style}>Add Post</Button>
       <Modal
         open={open}
         onClose={handleClose}
       >
-        <Box sx={{...style, width: 400 }}>
+        <Box sx={{...addPostModal_style, width: 400 }}>
             <Stack spacing={3}>
 
                 <Typography> New Post! </Typography>
                 <TextField id="outlined-basic" label="Post Title" variant="outlined" onChange={handleTitleChange} />
                 <TextField id="outlined-basic" label="Post Body" variant="outlined" multiline onChange={handleBodyChange}/>
-                <Button onClick={submit} sx={{
-            backgroundColor: '#bAb86c',
-            borderRadius: '10px',
-            color: '#000000'
-        }}> Submit! </Button>
+                <Button onClick={submit} sx={addPostModal_submitButton_style}> Submit! </Button>
 
             </Stack>
           
@@ -104,19 +85,11 @@ export function AddPostModal(props){
         open={eOpen}
         onClose={eClose}
       >
-        <Box sx={{...style, width: 400 }}>
+        <Box sx={{...addPostModal_style, width: 400 }}>
             <Stack spacing={3}>
-
                 <Typography> Please Log In To Post! </Typography>
-                <Button onClick={eClose} sx={{
-            backgroundColor: '#bAb86c',
-            borderRadius: '10px',
-            color: '#000000'
-        }}> Ok </Button>
-                
-
-            </Stack>
-          
+                <Button onClick={eClose} sx={addPostModal_button_style}> Ok </Button>
+            </Stack>          
         </Box>
       </Modal>
     </div>

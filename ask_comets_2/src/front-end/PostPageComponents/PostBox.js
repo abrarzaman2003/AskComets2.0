@@ -6,6 +6,8 @@ import { User } from "../../back-end/userModel";
 import { Post } from "../../back-end/postModel";
 import { ResolveButton } from "./ResolveButton";
 import { PostContext, PostProvider } from "../postPage";
+import { postsBox_box_style } from "../Styling/CardStyling";
+import { postBox_postBody_style, postBox_postTitle_style, postBox_user_style } from "../Styling/TypographyStyling";
 
 export function PostBox(props){
 
@@ -28,33 +30,12 @@ export function PostBox(props){
     },[]);
 
 
-    return(<Box sx={{
-        width: 1 ,
-        height: "fit-content",
-        backgroundColor: '#8FB8ED',
-        borderRadius: '21px',
-        paddingBottom: 3
-    }}>
+    return(<Box sx={postBox_box_style}>
         <Grid container justifyContent="space-between">
         <Grid item>
-            <Typography sx={
-                                    {
-                                        fontSize: '40px',
-                                        padding: 1,
-                                    }
-                                }> {post.postTitle} </Typography>
-            <Typography sx={
-                        {
-                            fontSize: '30px',
-                            padding: 1,
-                        }
-                    }> {post.postBody} </Typography>
-            <Typography sx={
-                            {
-                                fontSize: '20px',
-                                padding: 1,
-                            }
-                        }> Posted by: {user.name} </Typography>
+            <Typography sx={postBox_postTitle_style}> {post.postTitle} </Typography>
+            <Typography sx={postBox_postBody_style}> {post.postBody} </Typography>
+            <Typography sx={postBox_user_style}> Posted by: {user.name} </Typography>
 
         </Grid>
 

@@ -5,6 +5,8 @@ import { addComment, upvoteComment, checkUserUpvote } from "../../back-end/servi
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import { UserContext } from "../../App";
 import { PostContext } from "../postPage";
+import { upvoteBar_box_style } from "../Styling/CardStyling";
+import { upvoteCard_upvoteButton_style } from "../Styling/ButtonStyling";
 
 
 export  function UpvoteBar(props){
@@ -13,7 +15,6 @@ export  function UpvoteBar(props){
     const [upvoteCount, setUpvoteCount] = useState(props.comment.upvotes);
     const [disable , setDisable] = useState(true);
     const [upvoted, setUpvoted] = useState(false);
-    const [loaded, setLoaded] = useState(false);
 
     const {user} = useContext(UserContext);
     const {post} = useContext(PostContext);
@@ -21,21 +22,22 @@ export  function UpvoteBar(props){
     const incrementUpvote = () =>{
         commentObject.incrementUpvote();
         setCommentObject(commentObject);
-        //console.log(props.comment);
         setUpvoteCount(upvoteCount + 1);
         setUpvoted(true);
+        console.log("incremented? ", upvoted);
+        
     }
 
     const decrementUpvote = () =>{
         commentObject.decrementUpvote();
         setCommentObject(commentObject);
-        //console.log(props.comment);
         setUpvoteCount(upvoteCount-1);
         setUpvoted(false);
     }
 
     const firestoreUpdate = async ()=>{
-        console.log(commentObject);
+       
+        console.log("upvoted? ", upvoted);
 
         await addComment(commentObject);
        
@@ -51,12 +53,12 @@ export  function UpvoteBar(props){
             }
             a();
             
-        } , [user]
+        } , [user, props.comment]
     );
 
     useEffect(
         ()=>{
-            if (user.name=="Log In"){
+            if (user.name==="Log In"){
                 setDisable(true);
             }else{
                 setDisable(false);
@@ -66,7 +68,7 @@ export  function UpvoteBar(props){
                 firestoreUpdate();
             };
             
-        } , [user]
+        } , [user, firestoreUpdate]
     );
 
     const handleClick = () => {
@@ -78,27 +80,14 @@ export  function UpvoteBar(props){
     }
 
     return(
-        <Box sx={{
-            width: 'fit-content',
-            height: 'fit-content',
-            backgroundColor: '#F1DAC4',
-            borderRadius: '10px',
-            flexGrow: 1,
-            m: 1
-        }}>
+        <Box sx={upvoteBar_box_style}>
             <Grid container alignItems='center' direction='row'>
                 <Grid item xs={2}>
                     <Typography sx={{mx : 1}}> {upvoteCount} </Typography>
                 </Grid>
 
                 <Grid item xs={1}>
-                    <Button sx={{
-            backgroundColor: '#8FB8ED',
-            borderRadius: '10px',
-            color: '#000000',
-            margin: 1,
-            mx: 2
-        }} onClick={handleClick} disabled={disable}> <ThumbUpIcon style={{ color: '#19647E' }} /> </Button>
+                    <Button sx={upvoteCard_upvoteButton_style} onClick={handleClick} disabled={disable}> <ThumbUpIcon style={{ color: '#19647E' }} /> </Button>
                 </Grid>
 
                 

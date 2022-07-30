@@ -1,31 +1,15 @@
 import { Card, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
+import { postCard_card_style } from "../Styling/CardStyling";
+import { postCard_postBody_style, postCard_postTitle_style } from "../Styling/TypographyStyling";
 
 export function PostCard( props ){
-    const link = "/post/" + ""+ props.postId;
-
-    
+    const link = "/post/" + props.postId;
     return(
-            
-            <Card sx={{
-                width: 0.95,
-                backgroundColor: '#8FB8ED',
-                borderRadius: '21px',
-            }}>
-                
+            <Card sx={postCard_card_style}>
                 <Link to={link} style={{ color: 'inherit', textDecoration: 'inherit'}}>
-                    <Typography sx={
-                                {
-                                    fontSize: '25px',
-                                    padding: 1,
-                                }
-                            }> {props.postTitle} </Typography>
-                    <Typography sx={
-                                {
-                                    fontSize: '20px',
-                                    padding: 1,
-                                }
-                            }> {props.postBody} 
+                    <Typography sx={postCard_postTitle_style}> {props.postTitle} </Typography>
+                    <Typography sx={postCard_postBody_style}> {props.postBody} 
                     </Typography>
                 </Link>
             </Card>

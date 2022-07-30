@@ -9,6 +9,7 @@ import { PostContext } from "../postPage";
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { DeletePostModal } from "./DeletePostModal";
 import { EditPostModal } from "./EditPostModal";
+import { resolveButton_box_style } from "../Styling/CardStyling";
 
 export function ResolveButton(){
     const { user } = useContext(UserContext);
@@ -74,14 +75,7 @@ export function ResolveButton(){
     }
 
     return (
-        <Box sx={{
-            width: 'fit-content',
-            backgroundColor: '#bAb86c',
-            borderRadius: '10px',
-            color: '#000000',
-            margin: 2,
-            px: 2,
-        }}>
+        <Box sx={resolveButton_box_style}>
             <Grid container justifyContent='center' alignItems="center">
 
             <Grid item>

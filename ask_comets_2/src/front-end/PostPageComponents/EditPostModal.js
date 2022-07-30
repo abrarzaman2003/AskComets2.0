@@ -3,6 +3,8 @@ import { PostContext } from "../postPage";
 import { Post } from "../../back-end/postModel";
 import { Box, Button, Modal, Stack, Typography, TextField } from "@mui/material";
 import { addPost } from "../../back-end/service_functions";
+import { addCommentModal_style } from "../Styling/ModalStyling";
+import { loginButton_style } from "../Styling/ButtonStyling";
 
 
 
@@ -53,17 +55,13 @@ export function EditPostModal(props){
             open={props.open}
             onClose={handleClose}
           >
-            <Box sx={{...style, width: 400 }}>
+            <Box sx={addCommentModal_style}>
                 <Stack spacing={3}>
     
                     <Typography> Edit Post! </Typography>
                     <TextField id="outlined-basic" label="Post Title" variant="outlined" onChange={handleTitleChange} defaultValue={post.postTitle} />
                     <TextField id="outlined-basic" label="Post Body" variant="outlined" multiline onChange={handleBodyChange} defaultValue={post.postBody}/>
-                    <Button onClick={submit} sx={{
-                backgroundColor: '#bAb86c',
-                borderRadius: '10px',
-                color: '#000000'
-            }}> Submit! </Button>
+                    <Button onClick={submit} sx={loginButton_style}> Submit! </Button>
     
                 </Stack>
             </Box>

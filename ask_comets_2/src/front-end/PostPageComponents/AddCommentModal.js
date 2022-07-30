@@ -4,20 +4,10 @@ import { addComment } from "../../back-end/service_functions";
 import { Comment } from "../../back-end/commentObject";
 import { UserContext } from "../../App";
 import { PostContext } from "../postPage";
+import { addCommentModal_button_style, addCommentModal_okButtonStyle, addCommentModal_submitButton_style } from "../Styling/ButtonStyling";
+import { addCommentModal_style } from "../Styling/ModalStyling";
 
-const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 400,
-    bgcolor: '#8FB8ED',
-    boxShadow: 24,
-    pt: 2,
-    px: 4,
-    pb: 3,
-    borderRadius: "21px",
-  };
+
 
 export function AddCommentModal(props){
     const [open, setOpen] = useState(false);
@@ -65,26 +55,17 @@ export function AddCommentModal(props){
     
     return(
     <div>
-      <Button onClick={handleOpen} sx={{
-            backgroundColor: '#bAb86c',
-            borderRadius: '10px',
-            color: '#000000',
-            margin: 2
-        }}>Comment</Button>
+      <Button onClick={handleOpen} sx={addCommentModal_button_style}>Comment</Button>
       <Modal
         open={open}
         onClose={handleClose}
       >
-        <Box sx={{...style, width: 400 }}>
+        <Box sx={addCommentModal_style}>
             <Stack spacing={3}>
 
                 <Typography> Add Comment </Typography>
                 <TextField id="outlined-basic" label="Comment Body" variant="outlined" multiline onChange={handleBodyChange}/>
-                <Button onClick={submit} sx={{
-            backgroundColor: '#bAb86c',
-            borderRadius: '10px',
-            color: '#000000'
-        }}> Submit! </Button>
+                <Button onClick={submit} sx={addCommentModal_submitButton_style}> Submit! </Button>
 
             </Stack>
           
@@ -99,15 +80,11 @@ export function AddCommentModal(props){
         open={eOpen}
         onClose={eClose}
       >
-        <Box sx={{...style, width: 400 }}>
+        <Box sx={addCommentModal_style}>
             <Stack spacing={3}>
 
                 <Typography> Please Log In To Comment! </Typography>
-                <Button onClick={eClose} sx={{
-            backgroundColor: '#bAb86c',
-            borderRadius: '10px',
-            color: '#000000'
-        }}> Ok </Button>
+                <Button onClick={eClose} sx={addCommentModal_okButtonStyle}> Ok </Button>
                 
 
             </Stack>

@@ -1,2 +1,0 @@
-node ./src/botFiles/mainBot.js&
-npm start

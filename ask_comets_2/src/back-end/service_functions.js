@@ -58,10 +58,13 @@ export async function getComments(postId){
 }
 
 export async function upvoteComment (commentObject , userObject, upvoted){
+    
     const collectionRef = await collection(db, 'posts' , commentObject.postId, 'comments' , commentObject.commentId, 'upvoted');
     const a = await checkUserUpvote(commentObject, userObject);
     if (upvoted){
+        console.log("it is upvoted");
         if (!a){
+            console.log("adding...");
             const userRef = doc(collectionRef, userObject.userId);
             await setDoc(userRef, userObject.toMap(), {merge: true});
         }
@@ -69,6 +72,7 @@ export async function upvoteComment (commentObject , userObject, upvoted){
         //if not upvoted, and the the thing is there, then delete it
     }else{
         if (a){
+            console.log("deleteing", userObject.userId);
             const docRef = await doc(db, 'posts' , commentObject.postId, 'comments' , commentObject.commentId, 'upvoted', userObject.userId);
             await deleteDoc(docRef);
         }
@@ -79,6 +83,7 @@ export async function upvoteComment (commentObject , userObject, upvoted){
 export async function checkUserUpvote(commentObject , userObject){
     const docRef = await doc(db, 'posts' , commentObject.postId, 'comments' , commentObject.commentId, 'upvoted', userObject.userId);
     const docSnap  = await getDoc(docRef);
+    console.log(userObject.userId, "?" , docSnap.exists().toString());
     return docSnap.exists();
 }
 
