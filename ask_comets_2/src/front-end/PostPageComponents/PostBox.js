@@ -6,7 +6,7 @@ import { User } from "../../back-end/userModel";
 import { Post } from "../../back-end/postModel";
 import { ResolveButton } from "./ResolveButton";
 import { PostContext, PostProvider } from "../postPage";
-import { postsBox_box_style } from "../Styling/CardStyling";
+import { postBox_box_style } from "../Styling/CardStyling";
 import { postBox_postBody_style, postBox_postTitle_style, postBox_user_style } from "../Styling/TypographyStyling";
 
 export function PostBox(props){
