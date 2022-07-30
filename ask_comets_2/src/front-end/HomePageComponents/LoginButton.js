@@ -4,6 +4,7 @@ import {UserContext} from "../../App";
 import { logOut, signIn } from '../../back-end/authfunctions';
 import { User } from "../../back-end/userModel";
 import { loginButton_style } from "../Styling/ButtonStyling";
+import {useTransition, animated} from 'react-spring';
 
 
 
@@ -15,13 +16,21 @@ export function LoginButton() {
     const [anchorEl, setAnchorEl] = useState(null);
     const [open, setOpen] = useState(false);
 
+    const transition = useTransition(open, {
+        from: {x: 0, y:-50 , opacity: 0},
+        enter: {x: 0,y:0 , opacity: 1},
+        leave: {x: 0,y:-50 , opacity: 0}
+    });
+
+    const AnimatedMenu = animated(Menu);
+
     const handleMenuClick = (event) => {
         setAnchorEl(event.currentTarget);
         setOpen(true);
     };
     const handleClose = () => {
         //console.log(open);
-        setAnchorEl(null);
+        //setAnchorEl(null);
         setOpen(false);
         //console.log(open);
     };
@@ -65,9 +74,12 @@ export function LoginButton() {
         <Button variant="contained" onClick={handleClick} sx={loginButton_style}>
             <Typography> {user.name} </Typography>  
         </Button>
-        <Menu id="basic-menu" open={open} onClose={handleClose} anchorEl={anchorEl}>
-            <MenuItem onClick={handleLogOutClick}>Log Out</MenuItem>
-        </Menu>
+        {transition((style,open) =>
+            <AnimatedMenu id="basic-menu" open={open} onClose={handleClose} anchorEl={anchorEl} style={style}>
+                <MenuItem onClick={handleLogOutClick}>Log Out</MenuItem>
+            </AnimatedMenu>
+        )}
+        
         </div>
     );
 }

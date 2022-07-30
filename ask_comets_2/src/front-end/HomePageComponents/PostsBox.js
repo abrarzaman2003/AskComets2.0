@@ -5,6 +5,8 @@ import { getAllPosts } from "../../back-end/service_functions";
 import { postsBox_card_style, postsBox_recentPosts_style } from "../Styling/TypographyStyling";
 import { AddPostModal } from "./AddPostModal";
 import { PostCard } from "./PostCard";
+import {animated, useTransition} from 'react-spring';
+import { Post } from "../../back-end/postModel";
 
 
 
@@ -13,8 +15,17 @@ export function PostsBox(){
 
     const [postArray, setPostArray] = useState([]);
     const [count, setCount] = useState(0);
-    const {user } = useContext(UserContext);
+    const {user} = useContext(UserContext);
     
+    //const AnimatedPostCard = animated(PostCard);
+
+    // const transition = useTransition(postArray , {
+    //     from: {y:-1000, opacity: 0},
+    //     enter: (PostCard) => [
+            
+    //     ],
+    //     leave: {y:0, opacity: 0},
+    // } )
 
     useEffect(()=>{
         async function gettingPosts(){
@@ -45,6 +56,7 @@ export function PostsBox(){
 
             <Stack spacing={2} alignItems="center">
                 {postArray}
+                
             </Stack>
                 
                 
