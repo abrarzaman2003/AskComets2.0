@@ -33,6 +33,7 @@ export async function getPost(postId){
 
 // will add a post to the data base + will be able to edit existing posts
 export async function addPost(postObject){
+    console.log('service function: ', postObject);
     const collectionRef = collection(db, 'posts'); // retrieves the collection 
     const postRef = doc(collectionRef, postObject.postId); //creates a new doc reference with the ID of the post
     await setDoc(postRef, postObject.toMap(), { merge: true } ); //calls the set doc function with the doc reference, the post object (which gets turned into JSON)

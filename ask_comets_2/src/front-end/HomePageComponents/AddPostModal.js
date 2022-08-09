@@ -64,7 +64,15 @@ export function AddPostModal(props){
     }
 
     const submit = ()=> {
-        const newPost = new Post(props.userId, postTitleText, postBodyText, 0,false, null,postCourse,postProf,postSem);
+       
+        const newPost = new Post({
+            userId : props.userId,
+            postTitle: postTitleText,
+            postBody: postBodyText,
+            course: postCourse,
+            professor: postProf,
+            semester: postSem
+        });
         console.log(newPost);
         addPost(newPost);
         setOpen(false);

@@ -10,12 +10,12 @@ export const PostContext = createContext(null);
 
 export  const PostProvider = (props) => {
   const [post, setPost] = useState(new Post(
-    0,
-    "Loading...",
-    "Loading...",
-    "Loading...",
-    0,
-    false
+    {
+    userId : 0,
+    postTitle :"Loading...",
+    postBody : "Loading...",
+    userId : "Loading...",
+    }
 )); // a dummy object to read the text from 
   const value = useMemo(
    () => ({post, setPost}),[post]);

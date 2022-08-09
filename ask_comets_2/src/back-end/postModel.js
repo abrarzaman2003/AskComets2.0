@@ -2,26 +2,47 @@
 import uuid from "react-uuid";
 
 export class Post {
+    userId;
+    postBody;
+    postId;
+    resolved = false;
+    timeStamp;
+    course="";
+    professor="";
+    semester="";
     //constructor to make the post object, if the timestamp is left out, then the current timestamp is assigned
-    constructor(userId, postTitle, postBody, postId, resolved=false, timeStamp=new Date(), course="", professor="", semester=""){ 
-        this.userId = userId;
-        this.postBody = postBody;
-        this.postTitle = postTitle;
-        this.timeStamp = timeStamp;
-        this.resolved = resolved;
+    constructor(postMap){ 
+        this.userId = postMap['userId']
+        this.postBody = postMap['postBody'];
+        this.postTitle = postMap['postTitle'];
+        this.timeStamp = postMap['timeStamp'];
+        this.resolved = postMap['resolved'];
 
 
         //if the postId is 0, then a new postId is generated using uuid 
-        if (postId === 0){
-            this.postId = uuid();
+        if ('postId' in postMap){
+            this.postId = postMap['postId'];
         }else{
-            this.postId = postId;
+            this.postId = uuid();
         }
 
+        
+        this.timeStamp = postMap['timeStamp'] || new Date();
+        
+        this.resolved = postMap['resolved'] || false;//??
+
         // add some checkers to make sure these are legit classes (will do in future)
-        this.course= course;
-        this.professor = professor;
-        this.semester = semester;
+        if ('course' in postMap){
+            this.course= postMap['course'];
+        }
+        if ('professor' in postMap){
+            this.professor= postMap['professor'];
+        }
+        if ('semester' in postMap){
+            this.semester= postMap['semester'];
+        }
+        
+        
         
     }
     
@@ -50,15 +71,5 @@ export class Post {
 
 //the from map function takes any json maps from the database and coverts them into post objects
 export function fromMap(map){
-    return new Post(
-        map['userId'],
-        map['postTitle'],
-        map['postBody'],
-        map['postId'],
-        map['resolved'],
-        map['timeStamp'],
-        map['course'],
-        map['professor'],
-        map['semester'],
-    );
+    return new Post( map );
 }
