@@ -5,8 +5,9 @@ import { PostsBox } from './HomePageComponents/PostsBox';
 import { AskCometsLogo } from './HomePageComponents/AskCometsLogo';
 
 
-
+//this is the home page of the website
 export function HomePage(){
+    
     const [user, setUser] = useState("");
     const [loggedIn, setLoggedIn] = useState(false);
     

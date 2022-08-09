@@ -14,7 +14,7 @@ export function AddCommentModal(props){
     const [eOpen, seteOpen] = useState(false);
 
     const { user } = useContext(UserContext);
-    const {post} = useContext(PostContext);
+    const { post } = useContext(PostContext);
 
 
 
@@ -28,7 +28,13 @@ export function AddCommentModal(props){
     }
 
     const submit = ()=> {
-        const newComment = new Comment(user.userId, commentBodyText, post.postId, 0);
+        const commentMap = {
+            userId : user.userId,
+            commentBody : commentBodyText,
+            postId : post.postId,
+            upvotes : 0
+        }
+        const newComment = new Comment(commentMap);
         addComment(newComment);
         setOpen(false);
         const x = props.count + 1;

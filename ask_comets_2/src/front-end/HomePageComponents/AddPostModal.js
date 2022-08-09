@@ -31,6 +31,10 @@ export function AddPostModal(props){
     const [postTitleText, setPostTitleText] = useState("");
     const [postBodyText, setPostBodyText] = useState("");
 
+    const [postCourse, setPostCourse] = useState("");
+    const [postProf, setPostProf] = useState("");
+    const [postSem, setPostSem] = useState("");
+
     const { user } = useContext(UserContext);
 
 
@@ -44,8 +48,23 @@ export function AddPostModal(props){
 
     }
 
+    const handleCourseChange = (event)=>{
+        setPostCourse(event.target.value);
+
+    }
+
+    const handleProfChange = (event)=>{
+        setPostProf(event.target.value);
+
+    }
+
+    const handleSemChange = (event)=>{
+        setPostSem(event.target.value);
+
+    }
+
     const submit = ()=> {
-        const newPost = new Post(props.userId, postTitleText, postBodyText, 0);
+        const newPost = new Post(props.userId, postTitleText, postBodyText, 0,false, null,postCourse,postProf,postSem);
         console.log(newPost);
         addPost(newPost);
         setOpen(false);
@@ -57,7 +76,7 @@ export function AddPostModal(props){
     const handleOpen = () => {
         
         console.log(user.name);
-        if (user.name=="Log In"){
+        if (user.name==="Log In"){
             seteOpen(true);
         }else{
             setOpen(true);
@@ -84,6 +103,9 @@ export function AddPostModal(props){
                     <Typography> New Post! </Typography>
                     <TextField id="outlined-basic" label="Post Title" variant="outlined" onChange={handleTitleChange} />
                     <TextField id="outlined-basic" label="Post Body" variant="outlined" multiline onChange={handleBodyChange}/>
+                    <TextField id="outlined-basic" label="Course" variant="outlined"  onChange={handleCourseChange}/>
+                    <TextField id="outlined-basic" label="Professor" variant="outlined"  onChange={handleProfChange}/>
+                    <TextField id="outlined-basic" label="Semester" variant="outlined" onChange={handleSemChange}/>
                     <Button onClick={submit} sx={addPostModal_submitButton_style}> Submit! </Button>
 
                 </Stack>

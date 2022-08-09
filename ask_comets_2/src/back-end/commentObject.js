@@ -1,21 +1,36 @@
+//a class to store user information as an object
+import { useId } from "react";
 import uuid from "react-uuid";
 
 export class Comment {
-    
-    constructor(userId, commentBody, postId, commentId, upvotes = 0){
-        this.userId = userId;
-        this.commentBody = commentBody;
-        this.postId = postId;
-        this.upvotes = upvotes;
+    // the default upvote value should be 0;
+    userId;
+    commentBody;
+    postId;
+    commentId;
+    upvotes = 0;
 
-        if (commentId == 0){
-            this.commentId = uuid();
+    constructor(commentMap){
+        this.userId = commentMap['userId'];
+        this.commentBody = commentMap['commentBody'];
+        this.postId = commentMap['postId'];
+        this.upvotes = commentMap['upvotes'];
+
+        // if the commentId is 0, then a new commentId is generated using uid
+        if ('commentId' in commentMap){
+            console.log('found')
+            this.commentId = commentMap['commentId']
         }else{
-            this.commentId = commentId;
+            console.log('not found')
+            this.commentId = uuid();
         }
+
+        console.log(commentMap);
+        console.log(this);
         
     }
      
+    // to map function calls are used in order to convert this object into JSON to store in the database
     toMap(){
         return {
             postId : this.postId,
@@ -25,7 +40,7 @@ export class Comment {
             upvotes : this.upvotes
         };
     }
-
+    //these functions explicately increments and decrements the upvote count
     incrementUpvote(){
         this.upvotes = this.upvotes + 1; 
     }
@@ -36,12 +51,8 @@ export class Comment {
 
 }
 
+//the from map function takes any json maps from the database and coverts them into comment objects
 export function fromCommentMap(map){
-    return new Comment(
-        map['userId'],
-        map['commentBody'],
-        map['postId'],
-        map['commentId'],
-        map['upvotes']
-    );
+    console.log(map)
+    return new Comment(map);
 }
