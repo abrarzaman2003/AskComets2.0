@@ -1,5 +1,5 @@
 import { db } from "./firebase_config";
-import { collection, deleteDoc, doc, getDoc, getDocs, orderBy, query, setDoc} from "firebase/firestore";
+import { collection, deleteDoc, doc, getDoc, getDocs, orderBy, query, setDoc, where} from "firebase/firestore";
 import { fromMap } from "./postModel";
 import { Comment, fromCommentMap } from "./commentObject";
 import { fromUserMap } from "./userModel";
@@ -7,7 +7,7 @@ import { fromUserMap } from "./userModel";
 // these functions serve as the main CRUD operations with the firestore database
 
 
-// this function is used by the home page to get all of the posts
+// this function is used by the home page to get all of the posts, returns an array of postObjects
 export async function getAllPosts () {
     const collectionRef = await collection(db, 'posts'); //makes a reference to the collection
     const q = query(collectionRef, orderBy("timeStamp", "desc")); //this query orders the posts by time created
@@ -15,6 +15,48 @@ export async function getAllPosts () {
     const x = await snapShot.docs.map((doc) => (fromMap(doc.data()))); //maps the docs data into an array which is then returned
     return x;
     
+}
+// this function is used to filter posts by course, professor, and semester, returns an array of postObjects
+export async function getFilteredPosts(course, professor, semester) {
+    const collectionRef = await collection(db, 'posts'); // makes a reference to the collection
+    // list out all combinations of possible queries
+    const hasCourse =  Boolean(course);
+    const hasProf =  Boolean(professor);
+    const hasSem =  Boolean(semester);
+
+    console.log(course, " : ", hasCourse );
+    console.log(professor, " : ", hasProf );
+    console.log(semester, " : ", hasSem );
+
+    var q;
+    console.log(hasCourse && !hasProf && !hasSem);
+
+    if (hasCourse && hasProf && hasSem){// course , prof , sem
+        console.log("course , prof , sem");
+        q = query(collectionRef, where('course', '==' , course ) ,  where('professor', '==' , professor ) , where('semester', '==' , semester ) )
+    }else if (hasCourse && !hasProf && !hasSem){ // course, no prof, no sem 
+        console.log("course , no prof, no sem");
+        q = query(collectionRef, where('course', '==' , course ))
+    }else if (hasCourse && hasProf && !hasSem){// course, prof, no sem
+        console.log("course , prof, no sem");
+        q = query(collectionRef, where('course', '==' , course ), where('professor', '==' , professor ))
+    }else if (!hasCourse && hasProf && !hasSem){ // no course, prof , no sem
+        console.log("no course , prof, no sem");
+        q = query(collectionRef, where('professor', '==' , professor ))
+    }else if (!hasCourse && hasProf && hasSem){ // no course , prof , sem
+        console.log("no course , prof , sem");
+        q = query(collectionRef, where('professor', '==' , professor ) , where('semester', '==' , semester ) )
+    }else if (!hasCourse && !hasProf && hasSem){// no course , no prof, sem
+        console.log("no course , no prof, sem");
+        q = query(collectionRef, where('semester', '==' , semester ) )
+    }else{ // if nothing is specified, all posts are returned
+        console.log("all posts")
+        return getAllPosts();
+    }
+   
+    const snapShot = await getDocs(q);
+    const x = await snapShot.docs.map((doc) => (fromMap(doc.data()))); //maps the docs data into an array which is then returned
+    return x;
 }
 
 //this will be eventually updated when a profile page is made

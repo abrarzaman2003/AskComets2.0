@@ -7,6 +7,7 @@ import { AddPostModal } from "./AddPostModal";
 import { PostCard } from "./PostCard";
 import {animated, useTransition} from 'react-spring';
 import { Post } from "../../back-end/postModel";
+import { SearchModal } from "./SearchPopUp";
 
 
 
@@ -47,7 +48,9 @@ export function PostsBox(){
                         <Typography
                         sx={postsBox_recentPosts_style}> Recent Posts </Typography>
                     </Grid>
-                    
+                    <Grid item xs = {2}>
+                        <SearchModal func={setPostArray}></SearchModal>
+                    </Grid>
                     <Grid item xs ={2}>
                         <AddPostModal userId={user.userId} func={setCount} count={count}></AddPostModal>
                     </Grid>
