@@ -1,6 +1,6 @@
 import { Grid, Stack, Typography, Card } from "@mui/material";
 import { useState, useEffect, useContext } from "react";
-import { UserContext } from "../../App";
+import { PostArrayContext, UserContext } from "../../App";
 import { getAllPosts } from "../../back-end/service_functions";
 import { postsBox_card_style, postsBox_recentPosts_style } from "../Styling/TypographyStyling";
 import { AddPostModal } from "./AddPostModal";
@@ -14,19 +14,12 @@ import { SearchModal } from "./SearchPopUp";
 
 export function PostsBox(){
 
-    const [postArray, setPostArray] = useState([]);
+    //const [postArray, setPostArray] = useState([]);
     const [count, setCount] = useState(0);
     const {user} = useContext(UserContext);
-    
-    //const AnimatedPostCard = animated(PostCard);
-
-    // const transition = useTransition(postArray , {
-    //     from: {y:-1000, opacity: 0},
-    //     enter: (PostCard) => [
-            
-    //     ],
-    //     leave: {y:0, opacity: 0},
-    // } )
+    const {postArray, setPostArray} = useContext(PostArrayContext);
+   
+   
 
     useEffect(()=>{
         async function gettingPosts(){
@@ -35,9 +28,12 @@ export function PostsBox(){
             setPostArray(pArray);
             setCount(pArray.length);
         }
-
-        gettingPosts();
-    }, [count]);
+        if (postArray.length === 0){
+            gettingPosts();
+        }
+        
+        console.log('update');
+    }, []);
 
     return(
         <Card sx={postsBox_card_style}>
@@ -58,8 +54,7 @@ export function PostsBox(){
             
 
             <Stack spacing={2} alignItems="center">
-                {postArray}
-                
+                {postArray}               
             </Stack>
                 
                 

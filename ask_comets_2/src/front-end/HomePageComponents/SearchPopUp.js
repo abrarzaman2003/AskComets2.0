@@ -1,13 +1,14 @@
 import { Button, Modal, Box, Stack, Typography,TextField, FormControl, MenuItem, InputLabel, Select  } from "@mui/material";
-import { useState } from "react"
+import { useState, useContext } from "react"
 import { getFilteredPosts } from "../../back-end/service_functions";
 import { addPostModal_button_style, addPostModal_submitButton_style } from "../Styling/ButtonStyling";
 import { addPostModal_style } from "../Styling/ModalStyling";
 import { PostCard } from "./PostCard";
+import { PostArrayContext } from "../../App";
 
 
 export  function SearchModal(props){
-
+    const {postArray , setPostArray} = useContext(PostArrayContext);
     const [open, setOpen] = useState(false);
 
     const [postCourse, setPostCourse] = useState("");
@@ -49,8 +50,9 @@ export  function SearchModal(props){
         const gettingFilteredPosts = async () =>{
             const arr = await getFilteredPosts(postCourse, postProf, postSem);
             const pArray = await arr.map((p) => <PostCard key={p.postId} postTitle={p.postTitle} postBody={p.postBody} postId={p.postId}> </PostCard>  );
-            
-            props.func(pArray);
+            console.log(postArray.length);
+            setPostArray(pArray);
+            console.log(postArray.length);
         }
 
         gettingFilteredPosts();
@@ -62,6 +64,17 @@ export  function SearchModal(props){
         // in the future, implement a better text search using a specialized api
         // for right now, users would have to exactly match the course names + prof names
         // in the future, can use univ database to grab these things and make it a drop down
+    }
+
+    const clear =  () =>{
+        
+        setPostCourse("");
+        setPostProf("");
+        setPostSem("");
+        submit();
+        
+        
+        
     }
 
     return (
@@ -93,6 +106,7 @@ export  function SearchModal(props){
                         </FormControl>
                         
                         <Button onClick={submit} sx={addPostModal_submitButton_style}> Submit! </Button>
+                        <Button onClick={clear} sx={addPostModal_submitButton_style}> Clear Filters </Button>
                     </Stack>
                 </Box>
             </Modal>

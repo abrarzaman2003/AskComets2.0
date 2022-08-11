@@ -33,22 +33,22 @@ export async function getFilteredPosts(course, professor, semester) {
 
     if (hasCourse && hasProf && hasSem){// course , prof , sem
         console.log("course , prof , sem");
-        q = query(collectionRef, where('course', '==' , course ) ,  where('professor', '==' , professor ) , where('semester', '==' , semester ) )
+        q = query(collectionRef, where('course', '==' , course ) ,  where('professor', '==' , professor ) , where('semester', '==' , semester ), orderBy("timeStamp", "desc") )
     }else if (hasCourse && !hasProf && !hasSem){ // course, no prof, no sem 
         console.log("course , no prof, no sem");
-        q = query(collectionRef, where('course', '==' , course ))
+        q = query(collectionRef, where('course', '==' , course ), orderBy("timeStamp", "desc"))
     }else if (hasCourse && hasProf && !hasSem){// course, prof, no sem
         console.log("course , prof, no sem");
-        q = query(collectionRef, where('course', '==' , course ), where('professor', '==' , professor ))
+        q = query(collectionRef, where('course', '==' , course ), where('professor', '==' , professor ), orderBy("timeStamp", "desc"))
     }else if (!hasCourse && hasProf && !hasSem){ // no course, prof , no sem
         console.log("no course , prof, no sem");
-        q = query(collectionRef, where('professor', '==' , professor ))
+        q = query(collectionRef, where('professor', '==' , professor ), orderBy("timeStamp", "desc"))
     }else if (!hasCourse && hasProf && hasSem){ // no course , prof , sem
         console.log("no course , prof , sem");
-        q = query(collectionRef, where('professor', '==' , professor ) , where('semester', '==' , semester ) )
+        q = query(collectionRef, where('professor', '==' , professor ) , where('semester', '==' , semester ) , orderBy("timeStamp", "desc"))
     }else if (!hasCourse && !hasProf && hasSem){// no course , no prof, sem
         console.log("no course , no prof, sem");
-        q = query(collectionRef, where('semester', '==' , semester ) )
+        q = query(collectionRef, where('semester', '==' , semester ) , orderBy("timeStamp", "desc"))
     }else{ // if nothing is specified, all posts are returned
         console.log("all posts")
         return getAllPosts();

@@ -5,8 +5,9 @@ import { UserContext } from "../../App";
 import { Post } from "../../back-end/postModel";
 import { addPostModal_style } from "../Styling/ModalStyling";
 import { addPostModal_button_style, addPostModal_submitButton_style } from "../Styling/ButtonStyling";
-
+import { PostArrayContext } from "../../App";
 import { useTransition, animated } from "react-spring";
+import { PostCard } from "./PostCard";
 
 
 
@@ -36,7 +37,7 @@ export function AddPostModal(props){
     const [postSem, setPostSem] = useState("");
 
     const { user } = useContext(UserContext);
-
+    const {postArray, setPostArray} = useContext(PostArrayContext);
 
     const handleTitleChange = (event)=>{
         setPostTitleText(event.target.value);
@@ -77,6 +78,13 @@ export function AddPostModal(props){
         addPost(newPost);
         setOpen(false);
         const x = props.count + 1;
+
+        console.log(postArray);
+        const newPostCard = <PostCard key={newPost.postId} postTitle={newPost.postTitle} postBody={newPost.postBody} postId={newPost.postId}></PostCard>
+        postArray.unshift(newPostCard);
+        console.log(postArray);
+
+        setPostArray(postArray);
         props.func(x);
     }
 

@@ -11,6 +11,7 @@ import { createContext, useMemo, useState } from "react";
 
 
 
+
 export const theme = createTheme({
   typography: {
     fontFamily: [
@@ -43,18 +44,34 @@ const value = useMemo(
   );
 }
 
+export const PostArrayContext = createContext([]);
+
+export const PostArrayProvider = (props) =>{
+  const [postArray, setPostArray] = useState([]);
+  const value = useMemo(
+    () => ({postArray, setPostArray}),[postArray])
+   
+   
+     return ( 
+         <PostArrayContext.Provider value={value}>
+             {props.children}
+         </PostArrayContext.Provider>
+     );
+}
+
 
 function App() {
   return (
     <div className="App" >
     <UserProvider>
-    
+    <PostArrayProvider>
       <Router>
           <Routes>
             <Route path="/" element={<HomePage />}> </Route>
             <Route path="/post/:id" element={<PostPage />} />
           </Routes>
       </Router>
+    </PostArrayProvider>
     </UserProvider>
     </div>
   );
