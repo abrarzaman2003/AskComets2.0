@@ -7,6 +7,8 @@ import { UserContext } from "../../App";
 import { PostContext } from "../postPage";
 import { upvoteBar_box_style } from "../Styling/CardStyling";
 import { upvoteCard_upvoteButton_style } from "../Styling/ButtonStyling";
+import { upvote_Count_style } from "../Styling/TypographyStyling";
+import { textColor } from "../Styling/Colors";
 
 
 export  function UpvoteBar(props){
@@ -83,11 +85,11 @@ export  function UpvoteBar(props){
         <Box sx={upvoteBar_box_style}>
             <Grid container alignItems='center' direction='row'>
                 <Grid item xs={2}>
-                    <Typography sx={{mx : 1}}> {upvoteCount} </Typography>
+                    <Typography sx={upvote_Count_style}> {upvoteCount} </Typography>
                 </Grid>
 
                 <Grid item xs={1}>
-                    <Button sx={upvoteCard_upvoteButton_style} onClick={handleClick} disabled={disable}> <ThumbUpIcon style={{ color: '#19647E' }} /> </Button>
+                    <Button sx={upvoteCard_upvoteButton_style} onClick={handleClick} disabled={disable}> <ThumbUpIcon style={{ color: textColor }} /> </Button>
                 </Grid>
 
                 

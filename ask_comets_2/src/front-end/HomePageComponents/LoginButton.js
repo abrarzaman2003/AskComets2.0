@@ -5,6 +5,7 @@ import { logOut, signIn } from '../../back-end/authfunctions';
 import { User } from "../../back-end/userModel";
 import { loginButton_style } from "../Styling/ButtonStyling";
 import {useTransition, animated} from 'react-spring';
+import { button_text_style } from "../Styling/TypographyStyling";
 
 
 
@@ -72,7 +73,7 @@ export function LoginButton() {
     return(
         <div>
         <Button variant="contained" onClick={handleClick} sx={loginButton_style}>
-            <Typography> {user.name} </Typography>  
+            <Typography sx={button_text_style}> {user.name} </Typography>  
         </Button>
         {transition((style,open) =>
             <AnimatedMenu id="basic-menu" open={open} onClose={handleClose} anchorEl={anchorEl} style={style}>

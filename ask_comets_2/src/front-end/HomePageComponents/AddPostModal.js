@@ -8,6 +8,7 @@ import { addPostModal_button_style, addPostModal_submitButton_style } from "../S
 import { PostArrayContext } from "../../App";
 import { useTransition, animated } from "react-spring";
 import { PostCard } from "./PostCard";
+import { button_text_style } from "../Styling/TypographyStyling";
 
 
 
@@ -110,7 +111,7 @@ export function AddPostModal(props){
     
     return(
     <div>
-      <Button onClick={handleOpen} sx={addPostModal_button_style}>Add Post</Button>
+      <Button onClick={handleOpen} sx={addPostModal_button_style}> <Typography sx = {button_text_style} >Add Post </Typography></Button>
       {transition1((style,open)=>
         <AnimatedModal open={open} onClose={handleClose} style={style} BackdropProps={{style: {height: '120%'}}}>
             <Box sx={{...addPostModal_style }}>

@@ -5,6 +5,7 @@ import { addPostModal_button_style, addPostModal_submitButton_style } from "../S
 import { addPostModal_style } from "../Styling/ModalStyling";
 import { PostCard } from "./PostCard";
 import { PostArrayContext } from "../../App";
+import { button_text_style } from "../Styling/TypographyStyling";
 
 
 export  function SearchModal(props){
@@ -79,7 +80,7 @@ export  function SearchModal(props){
 
     return (
         <div>
-            <Button onClick={handleOpen} sx={addPostModal_button_style}> search </Button>
+            <Button onClick={handleOpen} sx={addPostModal_button_style}> <Typography sx = {button_text_style} > Search </Typography> </Button>
             <Modal open = {open} onClose={handleClose}>
                 <Box sx={addPostModal_style}>
                     <Stack>

@@ -1,42 +1,44 @@
+import { buttonColor, textColor } from "./Colors";
+
 export const loginButton_style = {
-    backgroundColor: '#bAb86c',
+    backgroundColor: buttonColor,
     borderRadius: '10px',
-    color: '#000000'
+    color: textColor
 };
 
 export const addPostModal_button_style = {
-    backgroundColor: '#bAb86c',
+    backgroundColor: buttonColor,
     borderRadius: '10px',
-    color: '#000000',
+    color: textColor,
     margin: 2
 }
 export const addPostModal_submitButton_style = {
-    backgroundColor: '#bAb86c',
+    backgroundColor: buttonColor,
     borderRadius: '10px',
-    color: '#000000'
+    color: textColor
 }
 
 export const addCommentModal_button_style = {
-    backgroundColor: '#bAb86c',
+    backgroundColor: buttonColor,
     borderRadius: '10px',
-    color: '#000000',
+    color: textColor,
     margin: 2
 }
 export const addCommentModal_submitButton_style = {
-    backgroundColor: '#bAb86c',
+    backgroundColor: buttonColor,
     borderRadius: '10px',
-    color: '#000000'
+    color: textColor
 }
 export const addCommentModal_okButtonStyle = {
-    backgroundColor: '#bAb86c',
+    backgroundColor: buttonColor,
     borderRadius: '10px',
-    color: '#000000'
+    color: textColor
 }
 
 export const upvoteCard_upvoteButton_style = {
-    backgroundColor: '#8FB8ED',
+    backgroundColor: buttonColor,
     borderRadius: '10px',
-    color: '#000000',
+    color: textColor,
     margin: 1,
     mx: 2
 }

@@ -8,6 +8,7 @@ import {
 import { createTheme} from "@mui/system";
 import { PostPage } from "./front-end/postPage";
 import { createContext, useMemo, useState } from "react";
+import edition from '/Users/abrarzaman/personalProjects/AskComets2.0/ask_comets_2/src/Edition-BxnV.ttf';
 
 
 
@@ -15,16 +16,11 @@ import { createContext, useMemo, useState } from "react";
 export const theme = createTheme({
   typography: {
     fontFamily: [
-      '-apple-system',
-      'BlinkMacSystemFont',
-      '"Segoe UI"',
-      'Roboto',
-      '"Helvetica Neue"',
-      'Arial',
-      'sans-serif',
-      '"Apple Color Emoji"',
-      '"Segoe UI Emoji"',
-      '"Segoe UI Symbol"',
+      "Nunito",
+      "Roboto",
+      "Helvetica Neue",
+      "Arial",
+      "sans-serif"
     ].join(','),
   },
 })
@@ -63,6 +59,7 @@ export const PostArrayProvider = (props) =>{
 function App() {
   return (
     <div className="App" >
+    
     <UserProvider>
     <PostArrayProvider>
       <Router>
