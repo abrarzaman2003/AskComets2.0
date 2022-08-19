@@ -8,7 +8,10 @@ import { addPostModal_button_style, addPostModal_submitButton_style } from "../S
 import { PostArrayContext } from "../../App";
 import { useTransition, animated } from "react-spring";
 import { PostCard } from "./PostCard";
-import { button_text_style } from "../Styling/TypographyStyling";
+import { button_text_style, postCard_postTitle_style, textField_styling } from "../Styling/TypographyStyling";
+import { textColor } from "../Styling/Colors";
+import { inputField_styling } from "../Styling/TextFieldStyling";
+
 
 
 
@@ -108,6 +111,7 @@ export function AddPostModal(props){
         seteOpen(false);
     }
 
+ 
     
     return(
     <div>
@@ -117,11 +121,11 @@ export function AddPostModal(props){
             <Box sx={{...addPostModal_style }}>
                 <Stack spacing={3}>
 
-                    <Typography> New Post! </Typography>
-                    <TextField id="outlined-basic" label="Post Title" variant="outlined" onChange={handleTitleChange} />
-                    <TextField id="outlined-basic" label="Post Body" variant="outlined" multiline onChange={handleBodyChange}/>
-                    <TextField id="outlined-basic" label="Course" variant="outlined"  onChange={handleCourseChange}/>
-                    <TextField id="outlined-basic" label="Professor" variant="outlined"  onChange={handleProfChange}/>
+                    <Typography sx = {postCard_postTitle_style}> New Post! </Typography>
+                    <TextField id="outlined-basic" label="Post Title" variant="outlined" onChange={handleTitleChange} sx={inputField_styling} />
+                    <TextField id="outlined-basic" label="Post Body" variant="outlined" multiline onChange={handleBodyChange} sx={inputField_styling}/>
+                    <TextField id="outlined-basic" label="Course" variant="outlined"  onChange={handleCourseChange} sx={inputField_styling}/>
+                    <TextField id="outlined-basic" label="Professor" variant="outlined"  onChange={handleProfChange} sx={inputField_styling}/>
 
 
                     {/* <TextField id="outlined-basic" label="Semester" variant="outlined" onChange={handleSemChange}/> */}
@@ -133,6 +137,7 @@ export function AddPostModal(props){
                             value={postSem}
                             label="Semester"
                             onChange={handleSemChange}
+                            
                         >
                             <MenuItem value={'Fall 2022'}>Fall 2022</MenuItem>
                             <MenuItem value={'Spring 2023'}>Spring 2023</MenuItem>

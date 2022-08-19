@@ -91,4 +91,13 @@ export const upvote_Count_style = {
     color: textColor
 }
 
+export const textField_styling = {
+    color: textColor,
+}
+
+export const menuItemStyling = {
+    fontSize: '15px',
+    color: textColor,
+    fontFamily: fonts,
+}
 

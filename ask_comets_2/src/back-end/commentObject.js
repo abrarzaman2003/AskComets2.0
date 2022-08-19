@@ -9,6 +9,7 @@ export class Comment {
     postId;
     commentId;
     upvotes = 0;
+    timeStamp;
 
     constructor(commentMap){
         this.userId = commentMap['userId'];
@@ -25,6 +26,8 @@ export class Comment {
             this.commentId = uuid();
         }
 
+        this.timeStamp = commentMap['timeStamp'] || new Date();
+
         console.log(commentMap);
         console.log(this);
         
@@ -37,7 +40,8 @@ export class Comment {
             userId : this.userId,
             commentBody : this.commentBody,
             commentId : this.commentId,
-            upvotes : this.upvotes
+            upvotes : this.upvotes,
+            timeStamp : this.timeStamp
         };
     }
     //these functions explicately increments and decrements the upvote count

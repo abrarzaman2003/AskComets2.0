@@ -1,11 +1,12 @@
-import { Button, Modal, Box, Stack, Typography,TextField, FormControl, MenuItem, InputLabel, Select  } from "@mui/material";
+import { Button, Modal, Box, Stack, Typography,TextField, FormControl, MenuItem, InputLabel, Select, Grid  } from "@mui/material";
 import { useState, useContext } from "react"
 import { getFilteredPosts } from "../../back-end/service_functions";
 import { addPostModal_button_style, addPostModal_submitButton_style } from "../Styling/ButtonStyling";
 import { addPostModal_style } from "../Styling/ModalStyling";
 import { PostCard } from "./PostCard";
 import { PostArrayContext } from "../../App";
-import { button_text_style } from "../Styling/TypographyStyling";
+import { button_text_style, postCard_postTitle_style } from "../Styling/TypographyStyling";
+import { inputField_styling } from "../Styling/TextFieldStyling";
 
 
 export  function SearchModal(props){
@@ -83,10 +84,10 @@ export  function SearchModal(props){
             <Button onClick={handleOpen} sx={addPostModal_button_style}> <Typography sx = {button_text_style} > Search </Typography> </Button>
             <Modal open = {open} onClose={handleClose}>
                 <Box sx={addPostModal_style}>
-                    <Stack>
-                        <Typography> Search! </Typography>
-                        <TextField id="outlined-basic" label="Course" variant="outlined"  onChange={handleCourseChange}/>
-                        <TextField id="outlined-basic" label="Professor" variant="outlined"  onChange={handleProfChange}/>
+                    <Stack spacing={3}>
+                        <Typography sx = {postCard_postTitle_style}> Search! </Typography>
+                        <TextField id="outlined-basic" label="Course" variant="outlined"  onChange={handleCourseChange} sx={inputField_styling}/>
+                        <TextField id="outlined-basic" label="Professor" variant="outlined"  onChange={handleProfChange} sx={inputField_styling}/>
 
 
                         {/* <TextField id="outlined-basic" label="Semester" variant="outlined" onChange={handleSemChange}/> */}
@@ -105,10 +106,11 @@ export  function SearchModal(props){
                                 <MenuItem value={'Fall 2023'}>Fall 2023</MenuItem>
                             </Select>
                         </FormControl>
-                        
-                        <Button onClick={submit} sx={addPostModal_submitButton_style}> Submit! </Button>
-                        <Button onClick={clear} sx={addPostModal_submitButton_style}> Clear Filters </Button>
-                    </Stack>
+                        <Grid>
+                            <Button onClick={submit} sx={addPostModal_submitButton_style}> Submit! </Button>
+                            <Button onClick={clear} sx={addPostModal_submitButton_style}> Clear Filters </Button>
+                        </Grid>
+                        </Stack>
                 </Box>
             </Modal>
         </div>

@@ -13,12 +13,19 @@ export function PostBox(props){
 
     const {post, setPost} = useContext(PostContext);
     const [user, setUser] = useState("");
+    const [date,setDate] = useState("");
 
     useEffect(()=>{
         async function retrievePost(){
             const postObject = await getPost(props.id);
             await setPost(postObject);
             //console.log(postObject);
+            console.log(postObject.timeStamp);
+            const newDate = postObject.timeStamp.toDate();
+            
+            const dateString = await newDate.toUTCString();
+            setDate(await dateString);
+
             return postObject;
         }
         async function retrieveUser(postObject){
@@ -26,8 +33,9 @@ export function PostBox(props){
             await setUser(u);
         }
         retrievePost().then((postObject) => retrieveUser(postObject));
-
+        
     },[]);
+
 
 
     return(<Box sx={postBox_box_style}>
@@ -36,6 +44,7 @@ export function PostBox(props){
             <Typography sx={postBox_postTitle_style}> {post.postTitle} </Typography>
             <Typography sx={postBox_postBody_style}> {post.postBody} </Typography>
             <Typography sx={postBox_user_style}> Posted by: {user.name} </Typography>
+            <Typography sx={postBox_user_style}> Posted on: {date} </Typography>
 
         </Grid>
 

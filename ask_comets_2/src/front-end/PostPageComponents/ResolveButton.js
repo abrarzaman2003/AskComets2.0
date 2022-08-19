@@ -10,6 +10,8 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { DeletePostModal } from "./DeletePostModal";
 import { EditPostModal } from "./EditPostModal";
 import { resolveButton_box_style } from "../Styling/CardStyling";
+import { menu_styling } from "../Styling/MenuStyling";
+import { menuItemStyling } from "../Styling/TypographyStyling";
 
 export function ResolveButton(){
     const { user } = useContext(UserContext);
@@ -93,17 +95,17 @@ export function ResolveButton(){
 
             </Grid>
 
-            <Menu id="basic-menu" open={open} onClose={handleClose} anchorEl={anchorEl}>
+            <Menu id="basic-menu" open={open} onClose={handleClose} anchorEl={anchorEl} sx={menu_styling}>
                 <MenuItem onClick={handleResolveClick}>
-                    <Typography>Resolve</Typography>
+                    <Typography sx={menuItemStyling}>Resolve</Typography>
                 </MenuItem>
 
                 <MenuItem onClick={handleEditClick}>
-                    <Typography>Edit Post</Typography>
+                    <Typography sx={menuItemStyling}>Edit Post</Typography>
                 </MenuItem>
 
                 <MenuItem onClick={handleDeleteClick}>
-                    <Typography>Delete Post</Typography>
+                    <Typography sx={menuItemStyling}>Delete Post</Typography>
                 </MenuItem>
 
             </Menu>

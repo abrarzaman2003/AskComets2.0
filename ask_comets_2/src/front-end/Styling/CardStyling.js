@@ -1,9 +1,12 @@
-import { buttonColor, cardBoxColor, cardColor, commentBoxColor, textColor } from "./Colors"
+import { backgroundColor, buttonColor, cardBoxColor, cardColor, commentBoxColor, textColor } from "./Colors"
 
 export const askCometsLogo_card_style = {
     width: 'fit-content',
     backgroundColor: buttonColor,
     borderRadius: '21px',
+    "&:hover": {
+        backgroundColor: backgroundColor,
+      },
 }
 
 export const postCard_card_style = {
